@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>7days</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-top">
+      <div class="logo-block">
+        <span class="logo-main">🎨 7days</span>
+      </div>
+      <div class="logo-center">
+        <span class="logo-sub">У нас вы найдете все самое лучшее!</span>
+      </div>
+    </div>
+  
+    <div class="header-bottom">
+      <input type="text" id="search" placeholder="Поиск..." />
+      <select id="categoryFilter">
+        <option value="all">Все категории</option>
+        <option value="краски">Краски</option>
+        <option value="карандаши">Карандаши</option>
+        <option value="бумага">Бумага</option>
+      </select>
+      <button onclick="toggleCart()">🛒 Корзина (<span id="cart-count">0</span>)</button>
+    </div>
+    <nav class="main-nav">
+      <a href="index.html">Главная</a>
+      <a href="catalog.html">Каталог</a>
+      <a href="about.html">О нас</a>
+    </nav>
+  </header>
+  
+  <main id="product-list"></main>
+
+  <div id="cart" class="hidden">
+    <h2>Корзина</h2>
+    <ul id="cart-items"></ul>
+    <p>Итого: <span id="cart-total">0₽</span></p>
+    <button onclick="checkout()">Оформить заказ</button>
+  </div>
+
+  <script src="script.js"></script>
+  <div id="notification" class="hidden"></div>
+ <!-- HTML -->
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-info">
+      <p>&copy; 2025 7days. Все права защищены.</p>
+      <p>г. Хасавюрт, ул. Тотурбиева, д. 206</p>
+    </div>
+
+    <div class="footer-map">
+      <div id="map" style="width: 100%; height: 200px;"></div>
+      <a
+        href="https://yandex.ru/maps/?ll=46.587750%2C43.250866&z=17&text=Хасавюрт%2C%20улица%20Тотурбиева%20206"
+        target="_blank"
+        class="map-link"
+      >
+        Открыть в Яндекс.Картах
+      </a>
+    </div>
+  </div>
+</footer>
+
+<!-- Yandex Maps API -->
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+<script>
+  ymaps.ready(init);
+  function init() {
+    var myMap = new ymaps.Map("map", {
+      center: [43.250866, 46.587750],
+      zoom: 17
+    });
+
+    var myPlacemark = new ymaps.Placemark([43.250866, 46.587750], {
+      hintContent: 'Наш офис',
+      balloonContent: 'г. Хасавюрт, ул. Тотурбиева, 206'
+    });
+
+    myMap.geoObjects.add(myPlacemark);
+  }
+</script>
+
+  
+  
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Товар</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1 style="color: white">Информация о товаре</h1>
+    <nav class="main-nav">
+      <a href="index.html">Главная</a>
+      <a href="catalog.html">Каталог</a>
+    </nav>
+  </header>
+
+  <main id="product-detail" style="padding: 2rem;"></main>
+
+  <script>
+    const products = [
+      { id: 1, name: "Акварель", price: 350, category: "краски", image: "img/аква.jpg"  },
+      { id: 2, name: "Масляные краски", price: 500, category: "краски", image: "img/masl.jpg" },
+      { id: 3, name: "Цветные карандаши", price: 200, category: "карандаши", image: "img/car.jpg" },
+      { id: 4, name: "Альбом для рисования", price: 150, category: "бумага", image: "img/fenix.jpg" },
+      { id: 5, name: "Пастель", price: 400, category: "карандаши", image: "img/acva-color.jpg" },
+      { id: 6, name: "Акриловая краска'Ладога'", price: 245, category: "краски", image: "img/акр.jpg" },
+      { id: 7, name: "Цветная бумага''Лео", price: 49, category: "бумага", image: "img/бум.jpg" },
+      { id: 8, name: "'KOH-I-NOOR Hardtmuth' Карандаш чернографитный технический 1500 заточенный", price: 89, category: "карандаши", image: "img/граф.jpg" },
+      { id: 9, name: "Краска гуашь 'VISTA-ARTISTA'", price: 889, category: "краски", image: "img/гуаш.jpg" },
+      { id: 10, name: "'VISTA-ARTISTA'Чернографитный карандаш", price: 49, category: "карандаши", image: "img/кар.jpg" },
+      { id: 11, name: "'Сонет'Гуашь цветная", price: 1050, category: "краски", image: "img/сонет.jpg" },
+      { id: 12, name: "Тетрадь учебная 12лист", price: 16, category: "бумага", image: "img/тетр.jpg" },
+      { id: 13, name: "Картон цветной 'Лео'", price: 277, category: "бумага", image: "img/цв.jpg" },
+      { id: 14, name: "Карандаши Акварельные", price: 569, category: "карандаши", image: "img/цвет.jpg" },
+    ];
+
+    const params = new URLSearchParams(window.location.search);
+    const productId = parseInt(params.get("id"));
+    const product = products.find(p => p.id === productId);
+
+    const container = document.getElementById("product-detail");
+
+    if (product) {
+      container.innerHTML = `
+        <div style="background: white; padding: 2rem; border-radius: 10px; max-width: 500px; margin: 0 auto;">
+          <img src="${product.image}" alt="${product.name}" style="width: 100%; border-radius: 8px;"/>
+          <h2>${product.name}</h2>
+          <p><strong>Категория:</strong> ${product.category}</p>
+          <p><strong>Цена:</strong> ${product.price}₽</p>
+          <button onclick="addToCart(${product.id})">Добавить в корзину</button>
+        </div>
+      `;
+    } else {
+      container.innerHTML = `<p>Товар не найден.</p>`;
+    }
+
+    function getCart() {
+  return JSON.parse(localStorage.getItem("cart")) || [];
+}
+
+function saveCart(cart) {
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+function addToCart(id) {
+  const cart = getCart();
+  const item = products.find(p => p.id === id);
+  cart.push(item);
+  saveCart(cart);
+  alert("Товар добавлен в корзину!");
+}
+
+  </script>
+</body>
+</html>
